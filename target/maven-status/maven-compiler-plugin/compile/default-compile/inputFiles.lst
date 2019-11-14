@@ -1,0 +1,9 @@
+/home/lucas/Desenvolvimento/eclipse-workspace/struts/src/main/java/br/com/age/challenge/struts/actions/LoginAction.java
+/home/lucas/Desenvolvimento/eclipse-workspace/struts/src/main/java/br/com/age/challenge/struts/actions/CreateAction.java
+/home/lucas/Desenvolvimento/eclipse-workspace/struts/src/main/java/br/com/age/challenge/struts/dao/DB.java
+/home/lucas/Desenvolvimento/eclipse-workspace/struts/src/main/java/br/com/age/challenge/struts/actions/UpdateAction.java
+/home/lucas/Desenvolvimento/eclipse-workspace/struts/src/main/java/br/com/age/challenge/struts/dao/repositories/ExameRepository.java
+/home/lucas/Desenvolvimento/eclipse-workspace/struts/src/main/java/br/com/age/challenge/struts/actions/ReadAction.java
+/home/lucas/Desenvolvimento/eclipse-workspace/struts/src/main/java/br/com/age/challenge/struts/actions/DeleteAction.java
+/home/lucas/Desenvolvimento/eclipse-workspace/struts/src/main/java/br/com/age/challenge/struts/ws/HelloWorld.java
+/home/lucas/Desenvolvimento/eclipse-workspace/struts/src/main/java/br/com/age/challenge/struts/model/Exame.java

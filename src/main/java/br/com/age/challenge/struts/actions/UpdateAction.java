@@ -123,7 +123,13 @@ public class UpdateAction extends ActionSupport {
 		return "EXAME";
 	}
 	
-	public String update() {		
+	public String update() {	
+		
+		if(nome.isEmpty() || cpf.isEmpty() || idade <= 0 || data.isEmpty() || hora.isEmpty() || descricao.isEmpty()) {
+			setResponse("Valores inválidos.");
+			return "error";
+		}
+		
 		try {
 			
 			exame = new Exame(nome, cpf, idade, data, hora, descricao);
@@ -133,10 +139,8 @@ public class UpdateAction extends ActionSupport {
 			Integer update = exameRepository.update(id, exame);
 			
 			if(update == 0) {
-
-			} else {
-				setResponse("Exame atualizado com sucesso!");
-
+				setResponse("Erro ao atualizar!");
+				return "error";
 			}
 			
 		} catch (Exception e) {

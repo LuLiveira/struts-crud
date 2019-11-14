@@ -41,6 +41,8 @@ public class ReadAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
+		
+		System.out.println("Entrei aqui");
 
 		try {
 

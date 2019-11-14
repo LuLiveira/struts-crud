@@ -6,7 +6,7 @@
 <body>
 	<h2>Delete Exames</h2>
 	<span><s:property value="response" /></span><br><br>
-	<a href="read">
+	<a href="listar.action">
 		<button type="button">Read</button>
 	</a>
 </body>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://ws.struts.challenge.age.com.br" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://ws.struts.challenge.age.com.br" xmlns:intf="http://ws.struts.challenge.age.com.br" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://ws.struts.challenge.age.com.br" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="hello">
+    <complexType>
+     <sequence>
+      <element name="nome" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="helloResponse">
+    <complexType>
+     <sequence>
+      <element name="helloReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="helloResponse">
+
+      <wsdl:part element="impl:helloResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="helloRequest">
+
+      <wsdl:part element="impl:hello" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="HelloWorld">
+
+      <wsdl:operation name="hello">
+
+         <wsdl:input message="impl:helloRequest" name="helloRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:helloResponse" name="helloResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="HelloWorldSoapBinding" type="impl:HelloWorld">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="hello">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="helloRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="helloResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="HelloWorldService">
+
+      <wsdl:port binding="impl:HelloWorldSoapBinding" name="HelloWorld">
+
+         <wsdlsoap:address location="http://localhost:8080/struts/services/HelloWorld"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

@@ -10,7 +10,7 @@
 <body>
 	<div>
 		<h2>Create Exames</h2>
-		<a href="read"><button class="button-read" type="button">Read</button></a>
+		<a href="listar.action"><button class="button-read" type="button">Read</button></a>
 		<s:form action="create.action" method="post">
 		
 			<s:textfield label="Nome" name="nome" />

@@ -23,6 +23,8 @@ public class CreateAction extends ActionSupport{
 	
 	
 	
+	
+	
 	public String getNome() {
 		return nome;
 	}
@@ -121,9 +123,17 @@ public class CreateAction extends ActionSupport{
 	@Override
 	public String execute() throws Exception {
 		
+		if(nome.isEmpty() || cpf.isEmpty() || idade <= 0 || data.isEmpty() || hora.isEmpty() || descricao.isEmpty()) {
+			setResponse("Valores inválidos.");
+			return "error";
+		}
+
 		try {
 			
 			exame = new Exame(this.nome, this.cpf, this.idade, this.data, this.hora, this.descricao);
+			
+			System.out.println(exame);
+			
 			exameRepository = new ExameRepository();
 			rows = exameRepository.create(exame);
 			
@@ -136,9 +146,12 @@ public class CreateAction extends ActionSupport{
 			}
 			
 		} catch (Exception e) {
-			setResponse("Erro ao criar o exame.");
+			e.printStackTrace();
+			setResponse("Exception ao criar o exame.");
 			return "error";
 		}
 	}
-
+	
 }
+
+

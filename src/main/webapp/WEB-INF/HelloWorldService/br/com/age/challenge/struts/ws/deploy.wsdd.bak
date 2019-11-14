@@ -1,0 +1,29 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from HelloWorldService WSDL service -->
+
+  <service name="HelloWorld" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://ws.struts.challenge.age.com.br"/>
+      <parameter name="wsdlServiceElement" value="HelloWorldService"/>
+      <parameter name="schemaQualified" value="http://ws.struts.challenge.age.com.br"/>
+      <parameter name="wsdlServicePort" value="HelloWorld"/>
+      <parameter name="className" value="br.com.age.challenge.struts.ws.HelloWorldSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="HelloWorld"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="hello" qname="operNS:hello" xmlns:operNS="http://ws.struts.challenge.age.com.br" returnQName="retNS:helloReturn" xmlns:retNS="http://ws.struts.challenge.age.com.br" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:nome" xmlns:pns="http://ws.struts.challenge.age.com.br" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="hello"/>
+
+  </service>
+</deployment>

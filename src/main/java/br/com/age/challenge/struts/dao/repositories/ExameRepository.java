@@ -41,7 +41,7 @@ public class ExameRepository {
 			Integer rows = 0;
 			return rows;
 			
-		}finally {
+		} finally {
 
 			this.connection.close();
 		}
