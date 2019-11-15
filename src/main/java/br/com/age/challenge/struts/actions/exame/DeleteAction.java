@@ -1,4 +1,4 @@
-package br.com.age.challenge.struts.actions;
+package br.com.age.challenge.struts.actions.exame;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -9,7 +9,6 @@ public class DeleteAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	private String response;
 	
 	private ExameRepository exameRepository = null;
 	
@@ -18,25 +17,9 @@ public class DeleteAction extends ActionSupport {
 		return id;
 	}
 
-
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-
-
-	public String getResponse() {
-		return response;
-	}
-
-
-
-	public void setResponse(String response) {
-		this.response = response;
-	}
-
-
 
 	@Override
 	public String execute() {

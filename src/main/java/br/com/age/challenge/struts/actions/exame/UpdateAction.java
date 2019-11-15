@@ -1,4 +1,4 @@
-package br.com.age.challenge.struts.actions;
+package br.com.age.challenge.struts.actions.exame;
 
 import java.sql.ResultSet;
 

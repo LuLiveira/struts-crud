@@ -16,25 +16,25 @@
 			<result name="error">/login.jsp</result>
 		</action>
 		
-		<action name="create" method="execute" class="br.com.age.challenge.struts.actions.CreateAction">
+		<action name="create" method="execute" class="br.com.age.challenge.struts.actions.exame.CreateAction">
 			<result name="success">/createsuccess.jsp</result>
 			<result name="input">/create.jsp</result>
 		</action>
 		
-		<action name="listar" method="execute" class="br.com.age.challenge.struts.actions.ReadAction">
+		<action name="listar" method="execute" class="br.com.age.challenge.struts.actions.exame.ReadAction">
 			<result name="success">/listar.jsp</result>
 		</action>
 		
-		<action name="delete" class="br.com.age.challenge.struts.actions.DeleteAction">
+		<action name="delete" class="br.com.age.challenge.struts.actions.exame.DeleteAction">
 			<result name="success">/delete.jsp</result>
 		</action>
 		
-		<action name="exame" class="br.com.age.challenge.struts.actions.UpdateAction">
+		<action name="exame" class="br.com.age.challenge.struts.actions.exame.UpdateAction">
 			<result name="success">/update.jsp</result>
 			
 		</action>
 		
-		<action name="update" method="update" class="br.com.age.challenge.struts.actions.UpdateAction">
+		<action name="update" method="update" class="br.com.age.challenge.struts.actions.exame.UpdateAction">
 			<result name="success" type="redirect">/listar.action</result>
 			<result name="error">/update.jsp</result>
 		</action>

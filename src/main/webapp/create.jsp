@@ -16,12 +16,11 @@
 		</a>
 		
 		<s:form action="create.action" method="post">
-		
-Data:       <input type="date" name="exame.data" value='<s:property value="exame.data"/>'>
+Data:       <input type="date" name="exame.data" />
+			<s:textfield label="E-mail" name="exame.email" />
 			<s:textfield label="Nome" name="exame.nome" />
 			<s:textfield label="Idade" name="exame.idade" />
 			<s:textfield label="Telefone" name="exame.telefone" />
-			<s:textfield label="E-mail" name="exame.email" />
 			<s:textfield label="CPF" name="exame.cpf" />			
 			<s:textfield label="Hora" name="exame.hora" />
 			<s:textfield label="Descricao" name="exame.descricao" />
