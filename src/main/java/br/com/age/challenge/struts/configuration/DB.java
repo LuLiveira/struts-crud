@@ -1,19 +1,19 @@
-package br.com.age.challenge.struts.dao;
+package br.com.age.challenge.struts.configuration;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
+
+import br.com.age.challenge.struts.exceptions.DBException;
 
 public class DB {
 	
-	public static Connection connection() throws ClassNotFoundException {
+	public static Connection connection() {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			return DriverManager.getConnection("jdbc:mysql://localhost:3306/age", "root", "root");
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
+		} catch (Exception e) {
+			throw new DBException(e.getMessage());
 		}
 	}
 

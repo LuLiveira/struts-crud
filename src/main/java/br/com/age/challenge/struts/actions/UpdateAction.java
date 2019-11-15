@@ -4,25 +4,27 @@ import java.sql.ResultSet;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import br.com.age.challenge.struts.dao.repositories.ExameRepository;
+import br.com.age.challenge.struts.dao.ExameRepository;
+import br.com.age.challenge.struts.exceptions.DBException;
 import br.com.age.challenge.struts.model.Exame;
 
 public class UpdateAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
-	private String nome;
-	private String cpf;
-	private Integer idade;
-	private String data;
-	private String hora;
-	private String descricao;
-	
-	private Exame exame;
 
-	private String response;
+	private Exame exame = null;
 
 	private ExameRepository exameRepository = null;
+	
+
+	public Exame getExame() {
+		return exame;
+	}
+
+	public void setExame(Exame exame) {
+		this.exame = exame;
+	}
 
 	public Integer getId() {
 		return id;
@@ -32,121 +34,48 @@ public class UpdateAction extends ActionSupport {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public Integer getIdade() {
-		return idade;
-	}
-
-	public void setIdade(Integer idade) {
-		this.idade = idade;
-	}
-
-	public String getData() {
-		return data;
-	}
-
-	public void setData(String data) {
-		this.data = data;
-	}
-
-	public String getHora() {
-		return hora;
-	}
-
-	public void setHora(String hora) {
-		this.hora = hora;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public String getResponse() {
-		return response;
-	}
-
-	public void setResponse(String response) {
-		this.response = response;
-	}
-
-	public ExameRepository getExameRepository() {
-		return exameRepository;
-	}
-
-	public void setExameRepository(ExameRepository exameRepository) {
-		this.exameRepository = exameRepository;
-	}
 
 	@Override
 	public String execute() {
-
+		
+		this.exame = new Exame();
+		
 		try {
-
+			
 			exameRepository = new ExameRepository();
-			ResultSet result = exameRepository.findExameById(id);
+			ResultSet result = exameRepository.findExameById(getId());
+			
 
 			if (result != null) {
 				while (result.next()) {
-					this.id = result.getInt("id");
-					this.nome = result.getString("nome");
-					this.cpf = result.getString("cpf");
-					this.idade = result.getInt("idade");
-					this.data = result.getString("data");
-					this.hora = result.getString("hora");
-					this.descricao = result.getString("descricao");
+					this.exame.setId(result.getInt("id"));
+					this.exame.setNome(result.getString("nome"));
+					this.exame.setCpf(result.getString("cpf"));
+					this.exame.setIdade(result.getInt("idade"));
+					this.exame.setData(result.getString("data"));
+					this.exame.setHora(result.getString("hora"));
+					this.exame.setDescricao(result.getString("descricao"));
 				}
 			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
+		}catch(Exception e) {
+			throw new DBException(e.getMessage());
 		}
-
-		return "EXAME";
+		return SUCCESS;
 	}
 	
 	public String update() {	
 		
-		if(nome.isEmpty() || cpf.isEmpty() || idade <= 0 || data.isEmpty() || hora.isEmpty() || descricao.isEmpty()) {
-			setResponse("Valores inválidos.");
-			return "error";
-		}
-		
 		try {
 			
-			exame = new Exame(nome, cpf, idade, data, hora, descricao);
-			
 			exameRepository = new ExameRepository();
-			
-			Integer update = exameRepository.update(id, exame);
-			
-			if(update == 0) {
-				setResponse("Erro ao atualizar!");
-				return "error";
-			}
+			exameRepository.update(getId(), this.exame);
+
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new DBException(e.getMessage());
 		}	
 		
-		return "UPDATED";
-	}
+		return SUCCESS;
+	}	
+	
 }

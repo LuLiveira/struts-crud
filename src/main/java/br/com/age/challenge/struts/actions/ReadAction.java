@@ -6,7 +6,8 @@ import java.util.List;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import br.com.age.challenge.struts.dao.repositories.ExameRepository;
+import br.com.age.challenge.struts.dao.ExameRepository;
+import br.com.age.challenge.struts.exceptions.DBException;
 import br.com.age.challenge.struts.model.Exame;
 
 public class ReadAction extends ActionSupport {
@@ -41,9 +42,6 @@ public class ReadAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		
-		System.out.println("Entrei aqui");
-
 		try {
 
 			exameList = new ArrayList<Exame>();
@@ -51,20 +49,16 @@ public class ReadAction extends ActionSupport {
 			exameRepository = new ExameRepository();
 
 			resultSet = exameRepository.read();
-
-			int i = 0;
 			
-			if (resultSet != null) {
-				
-				
+			if (resultSet != null) {	
 
 				while (resultSet.next()) {
-
-					i++;
 					exame = new Exame();
 
 					exame.setId(resultSet.getInt("id"));
 					exame.setNome(resultSet.getString("nome"));
+					exame.setTelefone(resultSet.getString("telefone"));
+					exame.setEmail(resultSet.getString("email"));
 					exame.setCpf(resultSet.getString("cpf"));
 					exame.setData(resultSet.getString("data"));
 					exame.setHora(resultSet.getString("hora"));
@@ -73,23 +67,14 @@ public class ReadAction extends ActionSupport {
 
 					exameList.add(exame);
 				}
-				
 				resultSet.close();
-
-			}
-			
-			if (i == 0) {
-				exists = false;
-			} else {
-				exists = true;
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
-			return "error";
+			throw new DBException(e.getMessage());
 		}
 		
-		return "LISTED";
+		return SUCCESS;
 	}
 
 }

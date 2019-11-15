@@ -4,30 +4,34 @@
 <title>Create</title>
 <style type="text/css">
 .button-create {background-color: green;color: white;}
-.button-read {background-color: #000000;color: white;margin-left: 30%;}
+.button-read {background-color: #000000;color: white;margin-bottom: 10px;}
 </style>
 </head>
 <body>
 	<div>
 		<h2>Create Exames</h2>
-		<a href="listar.action"><button class="button-read" type="button">Read</button></a>
+		
+		<a href="listar.action">
+			<button class="button-read" type="button">Listar</button>
+		</a>
+		
 		<s:form action="create.action" method="post">
 		
-			<s:textfield label="Nome" name="nome" />
-			<s:textfield label="Idade" name="idade" />
-			<s:textfield label="CPF" name="cpf" />
-			<s:textfield label="Data" name="data" />
-			<s:textfield label="Hora" name="hora" />
-			<s:textfield label="Descricao" name="descricao" />
+Data:       <input type="date" name="exame.data" value='<s:property value="exame.data"/>'>
+			<s:textfield label="Nome" name="exame.nome" />
+			<s:textfield label="Idade" name="exame.idade" />
+			<s:textfield label="Telefone" name="exame.telefone" />
+			<s:textfield label="E-mail" name="exame.email" />
+			<s:textfield label="CPF" name="exame.cpf" />			
+			<s:textfield label="Hora" name="exame.hora" />
+			<s:textfield label="Descricao" name="exame.descricao" />
+			
+			
 			
 			<s:submit cssClass="button-create" value="Create" />
+
 		</s:form>
-		<s:if test="rows>0">
-			<span style="color: green;"><s:property value="response" /></span>
-		</s:if>
-		<s:else>
-			<span style="color: red;"><s:property value="response" /></span>
-		</s:else>
 	</div>
+
 </body>
 </html>

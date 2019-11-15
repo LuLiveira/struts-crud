@@ -1,4 +1,4 @@
-package br.com.age.challenge.struts.dao.repositories;
+package br.com.age.challenge.struts.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,7 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import br.com.age.challenge.struts.dao.DB;
+import br.com.age.challenge.struts.configuration.DB;
+import br.com.age.challenge.struts.exceptions.DBException;
 import br.com.age.challenge.struts.model.Exame;
 
 public class ExameRepository {
@@ -17,32 +18,29 @@ public class ExameRepository {
 		connection = DB.connection();
 	}
 
-	public Integer create(Exame exame) throws Exception {
+	public void create(Exame exame) throws Exception {
+		
+		System.out.println(exame);
 
-		String query = "insert into exames (nome, cpf, idade, data, hora, descricao) values (?, ?, ?, ?, ?, ?)";
+		String query = "insert into exames (nome, telefone, email, cpf, idade, data, hora, descricao) values (?, ?, ?, ?, ?, ?, ?, ?)";
 
-		try (PreparedStatement preparedStatement = this.connection.prepareStatement(query,
-				Statement.RETURN_GENERATED_KEYS)) {
+		try (PreparedStatement preparedStatement = this.connection.prepareStatement(query)) {
 			
 			
 			preparedStatement.setString(1, exame.getNome());
-			preparedStatement.setString(2, exame.getCpf());
-			preparedStatement.setInt(3, exame.getIdade());
-			preparedStatement.setString(4, exame.getData());
-			preparedStatement.setString(5, exame.getHora());
-			preparedStatement.setString(6, exame.getDescricao());
+			preparedStatement.setString(2, exame.getTelefone());
+			preparedStatement.setString(3, exame.getEmail());
+			preparedStatement.setString(4, exame.getCpf());
+			preparedStatement.setInt(5, exame.getIdade());
+			preparedStatement.setString(6, exame.getData());
+			preparedStatement.setString(7, exame.getHora());
+			preparedStatement.setString(8, exame.getDescricao());
 
-			Integer rows = preparedStatement.executeUpdate();
+			preparedStatement.executeUpdate();
 			
-			return rows;
-			
-		} catch(Exception e) {
-			
-			Integer rows = 0;
-			return rows;
-			
+		} catch(Exception e) {			
+			throw new DBException(e.getMessage());
 		} finally {
-
 			this.connection.close();
 		}
 	}
@@ -63,27 +61,27 @@ public class ExameRepository {
 
 	}
 
-	public Integer update(Integer id, Exame exame)
+	public void update(Integer id, Exame exame)
 			throws SQLException {
 
 		this.connection.setAutoCommit(false);
-
-		int rows = 0;
 		
-		String query = "update exames set nome=?, idade=?, data=?, hora=?, descricao=? , cpf=? where id=?";
+		String query = "update exames set nome=?, telefone=?, email=?, idade=?, data=?, hora=?, descricao=? , cpf=? where id=?";
 
 		try {
 
 			PreparedStatement prepareStatement = this.connection.prepareStatement(query);
 			prepareStatement.setString(1, exame.getNome());
-			prepareStatement.setInt(2, exame.getIdade());
-			prepareStatement.setString(3, exame.getData());
-			prepareStatement.setString(4, exame.getHora());
-			prepareStatement.setString(5, exame.getDescricao());
-			prepareStatement.setString(6, exame.getCpf());
-			prepareStatement.setInt(7, id);
+			prepareStatement.setString(2, exame.getTelefone());
+			prepareStatement.setString(3, exame.getEmail());
+			prepareStatement.setInt(4, exame.getIdade());
+			prepareStatement.setString(5, exame.getData());
+			prepareStatement.setString(6, exame.getHora());
+			prepareStatement.setString(7, exame.getDescricao());
+			prepareStatement.setString(8, exame.getCpf());
+			prepareStatement.setInt(9, id);
 
-			rows = prepareStatement.executeUpdate();
+			prepareStatement.executeUpdate();
 			
 			this.connection.commit();
 			
@@ -92,14 +90,10 @@ public class ExameRepository {
 		} finally {
 			this.connection.close();
 		}
-		
-		return rows;
 
 	}
 
-	public Integer delete(Integer id) throws SQLException {
-		
-		int rows = 0;
+	public void delete(Integer id) throws SQLException {
 
 		this.connection.setAutoCommit(false);
 
@@ -110,7 +104,7 @@ public class ExameRepository {
 			PreparedStatement prepareStatement = this.connection.prepareStatement(query);
 			prepareStatement.setInt(1, id);
 
-			rows = prepareStatement.executeUpdate();
+			prepareStatement.executeUpdate();
 			
 			this.connection.commit();
 
@@ -119,8 +113,6 @@ public class ExameRepository {
 		} finally {
 			this.connection.close();
 		}
-		return rows;
-
 	}
 
 	public ResultSet findExameById(Integer id) {
@@ -133,10 +125,8 @@ public class ExameRepository {
 			
 			return prepareStatement.executeQuery();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new DBException(e.getMessage());
 		}
-		
-		return null;
 	}
 
 }

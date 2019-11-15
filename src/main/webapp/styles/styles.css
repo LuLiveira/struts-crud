@@ -1,0 +1,37 @@
+h3 {
+    text-weight: bold;
+    font-size: 16px;
+}
+
+table, td, th {
+	border: 1px solid black;
+}
+
+table {
+	border-collapse: collapse;
+	width: 60%;
+}
+
+th {
+	height: 30px;
+}
+
+.button-update {
+	background-color: #008CBA;
+	color: white;
+}
+
+.button-delete {
+	background-color: red;
+	color: white;
+}
+
+td { 
+	text-align: center; 
+}
+
+
+
+
+
+

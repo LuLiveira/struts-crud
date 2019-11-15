@@ -17,24 +17,25 @@
 		</action>
 		
 		<action name="create" method="execute" class="br.com.age.challenge.struts.actions.CreateAction">
-			<result name="success">/create.jsp</result>
-			<result name="error">/create.jsp</result>
+			<result name="success">/createsuccess.jsp</result>
+			<result name="input">/create.jsp</result>
 		</action>
 		
 		<action name="listar" method="execute" class="br.com.age.challenge.struts.actions.ReadAction">
-			<result name="LISTED">/listar.jsp</result>
+			<result name="success">/listar.jsp</result>
 		</action>
 		
 		<action name="delete" class="br.com.age.challenge.struts.actions.DeleteAction">
-			<result name="DELETE">/delete.jsp</result>
+			<result name="success">/delete.jsp</result>
 		</action>
 		
 		<action name="exame" class="br.com.age.challenge.struts.actions.UpdateAction">
-			<result name="EXAME">/update.jsp</result>
+			<result name="success">/update.jsp</result>
+			
 		</action>
 		
 		<action name="update" method="update" class="br.com.age.challenge.struts.actions.UpdateAction">
-			<result name="UPDATED" type="redirect">/listar.action</result>
+			<result name="success" type="redirect">/listar.action</result>
 			<result name="error">/update.jsp</result>
 		</action>
 		

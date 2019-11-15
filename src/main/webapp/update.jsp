@@ -1,4 +1,5 @@
- <%@taglib prefix="s" uri="/struts-tags"%>
+
+<%@taglib prefix="s" uri="/struts-tags"%>
 <html>
 <head>
 <title>Update</title>
@@ -9,32 +10,35 @@
 	<form action=update.action method="post">
 		<pre>	
 		
-Nome:      <input type="text" name="nome"
-				value='<s:property value="nome"/>'>
+Nome:        <input type="text" name="exame.nome"
+				value='<s:property value="exame.nome"/>'>
+				
+Telefone:    <input type="text" name="exame.telefone"
+				value='<s:property value="exame.telefone"/>'>
+				
+E-mail:      <input type="text" name="exame.email"
+				value='<s:property value="exame.email"/>'>
 						
-CPF:       <input type="text" name="cpf"
-				value='<s:property value="cpf"/>'>
+CPF:         <input type="text" name="exame.cpf"
+				value='<s:property value="exame.cpf"/>'>
 		
-Idade:     <input type="text" name="idade"
-				value='<s:property value="idade"/>'>
+Idade:       <input type="text" name="exame.idade"
+				value='<s:property value="exame.idade"/>'>
 			
-Data:      <input type="text" name="data"
-				value='<s:property value="data"/>'>
+Data:        <input type="date" name="exame.data"
+				value='<s:property value="exame.data"/>'>
 
-Hora:      <input type="text" name="hora"
-				value='<s:property value="hora"/>'>
+Hora:        <input type="text" name="exame.hora"
+				value='<s:property value="exame.hora"/>'>
 
-Descrição: <input type="text" name="descricao"
-				value='<s:property value="descricao"/>'>
+Descrição:   <input type="text" name="exame.descricao"
+				value='<s:property value="exame.descricao"/>'>
 		
            <input hidden type="text" name="id"
-				value='<s:property value="id"/>'>
+				value='<s:property value="exame.id"/>'>
            
 		<button name="submitType" value="update" type="submit">Atualizar</button>
 		</pre>
 	</form>
-	<s:if test="rows>=0">
-		<span style="color: red;"><s:property value="response" /></span>
-	</s:if>
 </body>
 </html>
