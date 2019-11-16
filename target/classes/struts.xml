@@ -22,17 +22,20 @@
 		<action name="delete"
 			class="br.com.age.challenge.struts.actions.exame.DeleteAction">
 			<result name="success">/delete.jsp</result>
+			<result name="error">/listar.jsp</result>
 		</action>
 
 		<action name="create" method="execute"
 			class="br.com.age.challenge.struts.actions.exame.CreateAction">
 			<result name="success" type="dispatcher">/createsuccess.jsp</result>
 			<result name="input">/create.jsp</result>
+			<result name="error">/create.jsp</result>
 		</action>
 
 		<action name="listar" method="execute"
 			class="br.com.age.challenge.struts.actions.exame.ReadAction">
 			<result name="success">/listar.jsp</result>
+			<result name="error">/create.jsp</result>
 		</action>
 
 		<action name="exame"

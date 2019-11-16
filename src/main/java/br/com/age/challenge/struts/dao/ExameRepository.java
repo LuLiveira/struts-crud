@@ -11,16 +11,16 @@ import br.com.age.challenge.struts.exceptions.DBException;
 import br.com.age.challenge.struts.model.Exame;
 
 public class ExameRepository {
-	
+
 	private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 
 	private Connection connection = null;
 
-	public ExameRepository() throws ClassNotFoundException {
+	public ExameRepository() {
 		connection = DB.connection();
 	}
 
-	public void create(Exame exame) throws Exception {
+	public Integer create(Exame exame) {
 
 		System.out.println(exame);
 
@@ -37,16 +37,22 @@ public class ExameRepository {
 			preparedStatement.setString(6, sdf.format(exame.getData()));
 			preparedStatement.setString(7, exame.getDescricao());
 
-			preparedStatement.executeUpdate();
+			int executeUpdate = preparedStatement.executeUpdate();
+
+			return executeUpdate;
 
 		} catch (Exception e) {
 			throw new DBException(e.getMessage());
 		} finally {
-			this.connection.close();
+			try {
+				this.connection.close();
+			} catch (SQLException e) {
+				throw new DBException(e.getMessage());
+			}
 		}
 	}
 
-	public ResultSet read() throws SQLException {
+	public ResultSet read() {
 
 		String query = "select * from exames";
 
@@ -56,6 +62,8 @@ public class ExameRepository {
 			ResultSet resultSet = prepareStatement.executeQuery();
 
 			return resultSet;
+		} catch (Exception e) {
+			throw new DBException(e.getMessage());
 		} finally {
 
 		}
@@ -63,10 +71,10 @@ public class ExameRepository {
 	}
 
 	public void update(Exame exame) throws SQLException {
-		
+
 		this.connection.setAutoCommit(false);
 
-		String query = "update exames set nome=?, telefone=?, email=?, idade=?, data=?, descricao=?, cpf=? where id=?";		
+		String query = "update exames set nome=?, telefone=?, email=?, idade=?, data=?, descricao=?, cpf=? where id=?";
 
 		try {
 
@@ -81,7 +89,7 @@ public class ExameRepository {
 			prepareStatement.setInt(8, exame.getId());
 
 			prepareStatement.executeUpdate();
-			
+
 			this.connection.commit();
 
 		} catch (SQLException e) {
@@ -93,26 +101,36 @@ public class ExameRepository {
 
 	}
 
-	public void delete(Integer id) throws SQLException {
-
-		this.connection.setAutoCommit(false);
-
-		String query = "delete from exames where id=?";
+	public Integer delete(Integer id) {
 
 		try {
+			this.connection.setAutoCommit(false);
+
+			String query = "delete from exames where id=?";
 
 			PreparedStatement prepareStatement = this.connection.prepareStatement(query);
 			prepareStatement.setInt(1, id);
 
-			prepareStatement.executeUpdate();
+			int executeUpdate = prepareStatement.executeUpdate();
 
 			this.connection.commit();
 
+			return executeUpdate;
+
 		} catch (SQLException e) {
-			this.connection.rollback();
+			try {
+				this.connection.rollback();
+			} catch (SQLException e1) {
+				throw new DBException(e.getMessage());
+			}
 		} finally {
-			this.connection.close();
+			try {
+				this.connection.close();
+			} catch (SQLException e) {
+				throw new DBException(e.getMessage());
+			}
 		}
+		return 0;
 	}
 
 	public ResultSet findExameById(Integer id) {

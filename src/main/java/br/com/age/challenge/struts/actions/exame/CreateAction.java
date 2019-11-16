@@ -7,16 +7,15 @@ import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.Validation;
 import com.opensymphony.xwork2.validator.annotations.Validations;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
-
-import br.com.age.challenge.struts.dao.ExameRepository;
 import br.com.age.challenge.struts.model.Exame;
+import br.com.age.challenge.struts.services.ExameService;
 
 @Validation()
 public class CreateAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 
 	private Exame exame;
-	private ExameRepository exameRepository;
+	private ExameService exameService = null;
 
 	@Validations(
            requiredFields = {
@@ -30,19 +29,16 @@ public class CreateAction extends ActionSupport {
 					@IntRangeFieldValidator(type = ValidatorType.SIMPLE, fieldName = "exame.idade", min = "1", max = "150", message = "Idade do paciente deve ser maior que ${min}.") }
 	)
 	public String execute() throws Exception {
-
-		exameRepository = new ExameRepository();
-		exameRepository.create(exame);
-		return SUCCESS;
+		exameService = new ExameService();
+		return exameService.createExame(exame);
 	}
 
 	@Override
 	public void validate() {
-
 		if (exame.getNome().length() == 0) {
 			addFieldError("exame.nome", "O nome do paciente é obrigatório.");
 		}
-
+		
 		if (exame.getCpf().length() < 11) {
 			addFieldError("exame.cpf", "O CPF informado é inválido!");
 		}

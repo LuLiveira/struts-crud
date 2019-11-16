@@ -2,17 +2,15 @@ package br.com.age.challenge.struts.actions.exame;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import br.com.age.challenge.struts.dao.ExameRepository;
-import br.com.age.challenge.struts.exceptions.DBException;
+import br.com.age.challenge.struts.services.ExameService;
 
 public class DeleteAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
-	
+
 	private Integer id;
-	
-	private ExameRepository exameRepository = null;
-	
-	
+
+	private ExameService exameService = null;
+
 	public Integer getId() {
 		return id;
 	}
@@ -23,17 +21,9 @@ public class DeleteAction extends ActionSupport {
 
 	@Override
 	public String execute() {
-		
-		try {
-			
-			exameRepository = new ExameRepository();
-			exameRepository.delete(id);
 
-		}catch(Exception e) {
-			throw new DBException(e.getMessage());
-		}
-		return SUCCESS;
+		exameService = new ExameService();
+		return exameService.deleteExame(getId());
+
 	}
-	
-
 }
