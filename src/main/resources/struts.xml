@@ -2,44 +2,51 @@
 <!DOCTYPE struts PUBLIC 
 	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
 	"http://struts.apache.org/dtds/struts-2.0.dtd">
-	
+
 <struts>
 
-	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.enable.DynamicMethodInvocation"
+		value="false" />
 	<constant name="struts.devMode" value="false" />
-	<constant name="struts.custom.i18n.resources" value="ApplicationResource" />
-	
+	<constant name="struts.custom.i18n.resources"
+		value="ApplicationResource" />
+
 	<package name="default" extends="struts-default" namespace="/">
-	
-		<action name="login" method="authenticate" class="br.com.age.challenge.struts.actions.LoginAction">
+
+		<action name="login"
+			class="br.com.age.challenge.struts.actions.login.LoginAction">
 			<result name="success">/create.jsp</result>
-			<result name="error">/login.jsp</result>
+			<result name="input">/login.jsp</result>
 		</action>
-		
-		<action name="create" method="execute" class="br.com.age.challenge.struts.actions.exame.CreateAction">
-			<result name="success">/createsuccess.jsp</result>
-			<result name="input">/create.jsp</result>
-		</action>
-		
-		<action name="listar" method="execute" class="br.com.age.challenge.struts.actions.exame.ReadAction">
-			<result name="success">/listar.jsp</result>
-		</action>
-		
-		<action name="delete" class="br.com.age.challenge.struts.actions.exame.DeleteAction">
+
+		<action name="delete"
+			class="br.com.age.challenge.struts.actions.exame.DeleteAction">
 			<result name="success">/delete.jsp</result>
 		</action>
-		
-		<action name="exame" class="br.com.age.challenge.struts.actions.exame.UpdateAction">
+
+		<action name="create" method="execute"
+			class="br.com.age.challenge.struts.actions.exame.CreateAction">
+			<result name="success" type="dispatcher">/createsuccess.jsp</result>
+			<result name="input">/create.jsp</result>
+		</action>
+
+		<action name="listar" method="execute"
+			class="br.com.age.challenge.struts.actions.exame.ReadAction">
+			<result name="success">/listar.jsp</result>
+		</action>
+
+		<action name="exame"
+			class="br.com.age.challenge.struts.actions.exame.UpdateAction">
 			<result name="success">/update.jsp</result>
-			
 		</action>
-		
-		<action name="update" method="update" class="br.com.age.challenge.struts.actions.exame.UpdateAction">
+
+		<action name="update" method="update"
+			class="br.com.age.challenge.struts.actions.exame.UpdateAction">
 			<result name="success" type="redirect">/listar.action</result>
-			<result name="error">/update.jsp</result>
+			<result name="input">/update.jsp</result>
 		</action>
-		
-	
+
+
 	</package>
 
 </struts>

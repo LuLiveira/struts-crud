@@ -1,0 +1,55 @@
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.3//EN" "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+
+<validators>
+
+	<validator type="regex">
+		<param name="fieldName">exame.telefone</param>
+		<param name="expression"><![CDATA[^\([1-9]{2}\) (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$]]></param>
+		<message>O telefone deve ter o formato (99) x9999-9999.</message>
+	</validator>
+
+	<validator type="regex">
+		<param name="fieldName">exame.cpf</param>
+		<param name="expression"><![CDATA[[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}]]></param>
+		<message>O formato do CPF é inválido.</message>
+	</validator>
+
+	<validator type="regex">
+		<param name="fieldName">exame.data</param>
+		<param name="expression"><![CDATA[[0-9]{2}/[0-9]{2}/[0-9]{4} : [0-9]{2}:[0-9]{2}]]></param>
+		<message>O formato da data deve ser (dd/MM/yyyy hh:mm) .</message>
+	</validator>
+
+	<validator type="date">
+		<param name="fieldName">exame.data</param>
+		<param name="min">01/01/2019</param>
+		<param name="max">01/01/9999</param>
+		<message>A data deve ser posterior a ${min}.</message>
+	</validator>
+
+	<validator type="requiredstring">
+		<param name="fieldName">exame.nome</param>
+		<message>O nome do paciente é obrigatório.</message>
+	</validator>
+
+	<validator type="requiredstring">
+		<param name="fieldName">exame.email</param>
+		<message>O e-mail do paciente é obrigatório.</message>
+	</validator>
+
+	<validator type="requiredstring">
+		<param name="fieldName">exame.telefone</param>
+		<message>O telefone do paciente é obrigatório.</message>
+	</validator>
+
+	<validator type="requiredstring">
+		<param name="fieldName">exame.cpf</param>
+		<message>O CPF do paciente é obrigatório.</message>
+	</validator>
+
+	<validator type="requiredstring">
+		<param name="fieldName">exame.descricao</param>
+		<message>A descrição do exame é obrigatória.</message>
+	</validator>
+
+</validators>

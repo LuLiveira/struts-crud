@@ -1,6 +1,7 @@
 package br.com.age.challenge.struts.actions.exame;
 
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +43,9 @@ public class ReadAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		
 		try {
 
 			exameList = new ArrayList<Exame>();
@@ -60,8 +64,7 @@ public class ReadAction extends ActionSupport {
 					exame.setTelefone(resultSet.getString("telefone"));
 					exame.setEmail(resultSet.getString("email"));
 					exame.setCpf(resultSet.getString("cpf"));
-					exame.setData(resultSet.getString("data"));
-					exame.setHora(resultSet.getString("hora"));
+					exame.setData(sdf.parse(resultSet.getString("data")));
 					exame.setDescricao(resultSet.getString("descricao"));
 					exame.setIdade(resultSet.getInt("idade"));
 

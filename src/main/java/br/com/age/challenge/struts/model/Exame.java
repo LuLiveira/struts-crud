@@ -1,5 +1,7 @@
 package br.com.age.challenge.struts.model;
 
+import java.util.Date;
+
 public class Exame {
 
 	private Integer id;
@@ -8,8 +10,7 @@ public class Exame {
 	private String email;
 	private String cpf;
 	private Integer idade;
-	private String data;
-	private String hora;
+	private Date data;
 	private String descricao;
 	
 	
@@ -17,12 +18,11 @@ public class Exame {
 	public Exame() {
 	}
 
-	public Exame(String nome, String cpf, Integer idade, String data, String hora, String descricao) {
+	public Exame(String nome, String cpf, Integer idade, Date data, String descricao) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.idade = idade;
 		this.data = data;
-		this.hora = hora;
 		this.descricao = descricao;
 	}
 
@@ -58,20 +58,12 @@ public class Exame {
 		this.idade = idade;
 	}
 
-	public String getData() {
+	public Date getData() {
 		return data;
 	}
 
-	public void setData(String data) {
+	public void setData(Date data) {
 		this.data = data;
-	}
-
-	public String getHora() {
-		return hora;
-	}
-
-	public void setHora(String hora) {
-		this.hora = hora;
 	}
 
 	public String getDescricao() {
@@ -101,8 +93,7 @@ public class Exame {
 
 	@Override
 	public String toString() {
-		return "Nome: " + nome + "\n Telefone: " + telefone + "\n E-mail: " + email + "\n CPF: " + cpf + "\n Idade: " + idade + "\n Data: " + data + "\n Hora: "
-				+ hora + "\n Descricao: " + descricao;
+		return "Nome: " + nome + "\n Telefone: " + telefone + "\n E-mail: " + email + "\n CPF: " + cpf + "\n Idade: " + idade + "\n Data: " + data + "\n Descricao: " + descricao;
 	}
 
 }

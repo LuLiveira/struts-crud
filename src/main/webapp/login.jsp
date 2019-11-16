@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Struts 2 - Login Screen</title>
+<title>Gerenciador de Exames - Login</title>
 </head>
 <body>
 
@@ -11,12 +11,12 @@
 	
 	<s:actionerror/>
 	
-	<s:form action="create.jsp" method="POST">
+	<s:form action="login.action" method="POST">
 	
-		<s:textfield label="Usuario" name="username" key="label.username" size="20" />
-		<s:password label="Senha" name="password" key="label.password" size="20" />
+		<s:textfield label="Usuario" name="usuario"  />
+		<s:password label="Senha" name="senha"  />
 		
-		<s:submit method="authenticate" key="label.login" align="center" value="Logar"/>
+		<s:submit method="authenticate" align="center" value="Logar"/>
 		
 	</s:form>
 

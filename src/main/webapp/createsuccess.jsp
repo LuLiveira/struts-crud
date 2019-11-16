@@ -8,7 +8,7 @@
 .button-read {background-color: #000000;color: white; margin-top: 10px}
 </style>
 <meta charset="UTF-8">
-<title>Exame criado com sucesso</title>
+<title>Gerenciador de Exames - Criar exame</title>
 </head>
 <body>
 	<h3><s:text name="criado" /></h3>

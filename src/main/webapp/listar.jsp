@@ -1,17 +1,25 @@
 <%@taglib prefix="s" uri="/struts-tags"%>
 <html>
 <head>
-	<title>Exames</title>
+	<title>Gerenciador de Exames - Listar exames</title>
 	<link rel="stylesheet" type="text/css" href="./styles/styles.css">
 	<style>
+		.button-new {
+			background-color: green;
+			color: white;
+		}	
+		.button-logout {
+			background-color: #000;
+			color: white;
+			margin-top: 10px;
+		}
 	</style>
 </head>
 <body>
 	<div class="container">
-		<h3>Lista de Exames</h3>
+		<h1>Lista de Exames</h1>
 		
-		<a href="create.jsp"><button class="button-read" type="button"><s:text name="novo" /></button></a>
-		
+			<a href="create.jsp"><button class="button-new" type="button"><s:text name="novo" /></button></a>
 		
 		<div style="margin-top: 40px;">
 			<table>
@@ -23,8 +31,7 @@
 						<th>E-mail</th>
 						<th>CPF</th>
 						<th>Idade</th>
-						<th>Data</th>
-						<th>Hora</th>
+						<th>Data/Hora</th>
 						<th>Descrição</th>
 						<th>Action</th>
 					</tr>
@@ -37,8 +44,7 @@
 						<td><s:property value="email" /></td>
 						<td><s:property value="cpf" /></td>
 						<td><s:property value="idade" /></td>
-						<td><s:property value="data" /></td>
-						<td><s:property value="hora" /></td>
+						<td><s:date name="data" format="dd/MM/yyyy hh:mm" /></td>
 						<td><s:property value="descricao" /></td>
 						
 						<td>
@@ -54,6 +60,7 @@
 				</s:iterator>
 			</table>
 		</div>
+		<a href="login.jsp"><button class="button-logout" type="button"><s:text name="logout" /></button></a>
 	</div>
 </body>
 </html>

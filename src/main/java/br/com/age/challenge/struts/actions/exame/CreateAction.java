@@ -2,6 +2,8 @@ package br.com.age.challenge.struts.actions.exame;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
+import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
+import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.Validation;
 import com.opensymphony.xwork2.validator.annotations.Validations;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
@@ -16,9 +18,17 @@ public class CreateAction extends ActionSupport {
 	private Exame exame;
 	private ExameRepository exameRepository;
 
-	@Validations(emails = {
-			@EmailValidator(type = ValidatorType.SIMPLE, fieldName = "email", message = "You must enter a value for email.") })
-	@Override
+	@Validations(
+           requiredFields = {
+        		   	@RequiredFieldValidator(type = ValidatorType.SIMPLE, fieldName = "exame.idade", message = "A idade do paciente é obrigatória."),
+        		   	@RequiredFieldValidator(type = ValidatorType.SIMPLE, fieldName = "exame.data", message = "A data do exame é obrigatória."),
+        		   	@RequiredFieldValidator(type = ValidatorType.SIMPLE, fieldName = "exame.email", message = "O e-mail do paciente é obrigatório.")
+           },
+			emails = {
+					@EmailValidator(type = ValidatorType.SIMPLE, fieldName = "exame.email", message = "Insira um e-mail válido.") }, 
+			intRangeFields = {
+					@IntRangeFieldValidator(type = ValidatorType.SIMPLE, fieldName = "exame.idade", min = "1", max = "150", message = "Idade do paciente deve ser maior que ${min}.") }
+	)
 	public String execute() throws Exception {
 
 		exameRepository = new ExameRepository();
@@ -30,15 +40,11 @@ public class CreateAction extends ActionSupport {
 	public void validate() {
 
 		if (exame.getNome().length() == 0) {
-			addFieldError("exame.nome", "O nome é obrigatório.");
-		}
-
-		if (exame.getIdade() <= 0) {
-			addFieldError("exame.idade", "A idade informada é inválida");
+			addFieldError("exame.nome", "O nome do paciente é obrigatório.");
 		}
 
 		if (exame.getCpf().length() < 11) {
-			addFieldError("exame.cpf", "O CPF informado é inválido! Não use caracteres especiais ( . , - )");
+			addFieldError("exame.cpf", "O CPF informado é inválido!");
 		}
 
 		if (exame.getDescricao().length() == 0) {
@@ -48,7 +54,7 @@ public class CreateAction extends ActionSupport {
 
 		if (exame.getTelefone().length() == 0) {
 			addFieldError("exame.telefone",
-					"Telefone inválido. Digite um telefone válido. Não use caracteres especiais");
+					"Telefone inválido. Digite um telefone válido.");
 		}
 	}
 

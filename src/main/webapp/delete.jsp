@@ -1,7 +1,13 @@
 <%@taglib prefix="s" uri="/struts-tags"%>
 <html>
 <head>
-<title>Delete</title>
+<title>Gerenciador de Exames - Remover exame</title>
+<style>
+	.return {
+		background-color: #000000;color: white;
+		margin-bottom: 10px;
+	}
+</style>
 </head>
 <body>
 	<h2><s:text name="header" /></h2>
@@ -10,7 +16,7 @@
 	</span>
 	<br><br>
 	<a href="listar.action">
-		<button type="button"><s:text name="listar" /></button>
+		<button class="return" type="button"><s:text name="listar" /></button>
 	</a>
 </body>
 </html>
