@@ -1,5 +1,8 @@
 package br.com.age.challenge.struts.actions.exame;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -19,6 +22,7 @@ public class CreateAction extends ActionSupport {
 	private Exame exame;
 	private ExameService exameService = null;
 	
+
 	private Long id;
 
 	public Long getId() {
