@@ -1,8 +1,5 @@
 package br.com.age.challenge.struts.actions.exame;
 
-import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
-
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -13,9 +10,8 @@ import com.opensymphony.xwork2.validator.annotations.Validation;
 import com.opensymphony.xwork2.validator.annotations.Validations;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
-import br.com.age.challenge.struts.dao.ExameRepository;
-import br.com.age.challenge.struts.exceptions.DBException;
 import br.com.age.challenge.struts.model.Exame;
+import br.com.age.challenge.struts.services.ExameService;
 
 @Validation()
 public class UpdateAction extends ActionSupport {
@@ -24,8 +20,8 @@ public class UpdateAction extends ActionSupport {
 	private Long id;
 
 	private Exame exame = null;
-
-	private ExameRepository exameRepository = null;
+	
+	private ExameService exameService = null;
 
 	public Exame getExame() {
 		return exame;
@@ -47,31 +43,13 @@ public class UpdateAction extends ActionSupport {
 	@Override
 	public String execute() {
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
-		this.exame = new Exame();
-
-		try {
-
-			exameRepository = new ExameRepository();
-			ResultSet result = exameRepository.findExameById(getId());
-
-			if (result != null) {
-				while (result.next()) {
-					this.exame.setId(result.getInt("id"));
-					this.exame.setNome(result.getString("nome"));
-					this.exame.setEmail(result.getString("email"));
-					this.exame.setTelefone(result.getString("telefone"));
-					this.exame.setCpf(result.getString("cpf"));
-					this.exame.setIdade(result.getInt("idade"));
-					this.exame.setData(sdf.parse(result.getString("data")));
-					this.exame.setDescricao(result.getString("descricao"));
-				}
-			}
-
-		} catch (Exception e) {
-			throw new DBException(e.getMessage());
+		exameService = new ExameService();
+		setExame(exameService.findExameById(getId()));
+		
+		if(getExame() == null) {
+			return ERROR;
 		}
-		return SUCCESS;
+		return SUCCESS;		
 	}
 
 	@Validations(
@@ -85,16 +63,13 @@ public class UpdateAction extends ActionSupport {
 			})
 	public String update() {
 		
-
-		try {
-			exameRepository = new ExameRepository();
-			exameRepository.update(getExame());
-
-		} catch (Exception e) {
-			throw new DBException(e.getMessage());
+		exameService = new ExameService();
+		Integer update = exameService.update(getExame());
+		
+		if(update == 1) {
+			return SUCCESS;
 		}
-
-		return SUCCESS;
+		return ERROR;
 	}
 	
 	

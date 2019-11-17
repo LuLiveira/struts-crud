@@ -31,9 +31,7 @@ public class ReadAction extends ActionSupport {
 		if (getExameList().size() > 0) {
 			return SUCCESS;
 		}
-
 		return ERROR;
-
 	}
 
 }

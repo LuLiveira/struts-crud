@@ -20,7 +20,6 @@
 			<result name="input">/login.jsp</result>
 		</action>
 
-
 		<action name="delete"
 			class="br.com.age.challenge.struts.actions.exame.DeleteAction">
 			<result name="success">/delete.jsp</result>
@@ -53,15 +52,16 @@
 		<action name="exame"
 			class="br.com.age.challenge.struts.actions.exame.UpdateAction">
 			<result name="success">/update.jsp</result>
+			<result name="error">/listar.action</result>
 		</action>
 
 		<action name="update" method="update"
 			class="br.com.age.challenge.struts.actions.exame.UpdateAction">
 			<result name="success" type="redirect">/listar.action</result>
 			<result name="input">/update.jsp</result>
+			<result name="error">/create.jsp</result>
 		</action>
-
-
+		
 	</package>
 
 </struts>

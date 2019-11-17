@@ -73,13 +73,13 @@ public class ExameRepository {
 
 	}
 
-	public void update(Exame exame) throws SQLException {
-
-		this.connection.setAutoCommit(false);
-
-		String query = "update exames set nome=?, telefone=?, email=?, idade=?, data=?, descricao=?, cpf=? where id=?";
+	public Integer update(Exame exame){
 
 		try {
+			this.connection.setAutoCommit(false);
+
+			String query = "update exames set nome=?, telefone=?, email=?, idade=?, data=?, descricao=?, cpf=? where id=?";
+
 
 			PreparedStatement prepareStatement = this.connection.prepareStatement(query);
 			prepareStatement.setString(1, exame.getNome());
@@ -91,15 +91,25 @@ public class ExameRepository {
 			prepareStatement.setString(7, exame.getCpf());
 			prepareStatement.setInt(8, exame.getId());
 
-			prepareStatement.executeUpdate();
+			int executeUpdate = prepareStatement.executeUpdate();
 
 			this.connection.commit();
+			
+			return executeUpdate;
 
 		} catch (SQLException e) {
-			this.connection.rollback();
+			try {
+				this.connection.rollback();
+			} catch (SQLException e1) {
+				throw new DBException(e1.getMessage());
+			}
 			throw new DBException(e.getMessage());
 		} finally {
-			this.connection.close();
+			try {
+				this.connection.close();
+			} catch (SQLException e) {
+				throw new DBException(e.getMessage());
+			}
 		}
 
 	}

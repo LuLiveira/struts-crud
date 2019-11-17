@@ -1,10 +1,5 @@
 package br.com.age.challenge.struts.actions.exame;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import org.apache.struts2.interceptor.validation.SkipValidation;
-
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
 import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;

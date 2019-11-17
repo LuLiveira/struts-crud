@@ -105,4 +105,12 @@ public class ExameService {
 		return null;
 	}
 
+	public Integer update(Exame exame) {
+
+		exameRepository = new ExameRepository();
+		Integer update = exameRepository.update(exame);
+
+		return update;
+	}
+
 }
