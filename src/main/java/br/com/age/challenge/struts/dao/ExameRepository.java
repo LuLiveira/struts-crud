@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 
 import br.com.age.challenge.struts.configuration.DB;
@@ -20,14 +21,14 @@ public class ExameRepository {
 		connection = DB.connection();
 	}
 
-	public Integer create(Exame exame) {
+	public Long create(Exame exame) {
 
 		System.out.println(exame);
 
 		String query = "insert into exames (nome, telefone, email, cpf, idade, data, descricao) values (?, ?, ?, ?, ?, ?, ?)";
 
 		try {
-			PreparedStatement preparedStatement = this.connection.prepareStatement(query);
+			PreparedStatement preparedStatement = this.connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
 			preparedStatement.setString(1, exame.getNome());
 			preparedStatement.setString(2, exame.getTelefone());
@@ -37,9 +38,11 @@ public class ExameRepository {
 			preparedStatement.setString(6, sdf.format(exame.getData()));
 			preparedStatement.setString(7, exame.getDescricao());
 
-			int executeUpdate = preparedStatement.executeUpdate();
+			preparedStatement.executeUpdate();
 
-			return executeUpdate;
+			ResultSet resultSet = preparedStatement.getGeneratedKeys();
+			
+			return resultSet.next() ? resultSet.getLong(1) : null;
 
 		} catch (Exception e) {
 			throw new DBException(e.getMessage());
@@ -133,13 +136,13 @@ public class ExameRepository {
 		return 0;
 	}
 
-	public ResultSet findExameById(Integer id) {
+	public ResultSet findExameById(Long id) {
 
 		String query = "select * from exames where id=?";
 
 		try {
 			PreparedStatement prepareStatement = this.connection.prepareStatement(query);
-			prepareStatement.setInt(1, id);
+			prepareStatement.setLong(1, id);
 
 			return prepareStatement.executeQuery();
 		} catch (Exception e) {

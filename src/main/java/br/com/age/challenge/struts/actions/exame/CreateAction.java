@@ -1,5 +1,7 @@
 package br.com.age.challenge.struts.actions.exame;
 
+import org.apache.struts2.interceptor.validation.SkipValidation;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
 import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
@@ -16,6 +18,16 @@ public class CreateAction extends ActionSupport {
 
 	private Exame exame;
 	private ExameService exameService = null;
+	
+	private Long id;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	@Validations(
            requiredFields = {
@@ -30,7 +42,10 @@ public class CreateAction extends ActionSupport {
 	)
 	public String execute() throws Exception {
 		exameService = new ExameService();
-		return exameService.createExame(exame);
+		Long id = exameService.createExame(exame);
+		setId(id);
+		
+		return getId() > 0 ? "success" : "error"; 
 	}
 
 	@Override
@@ -52,6 +67,14 @@ public class CreateAction extends ActionSupport {
 			addFieldError("exame.telefone",
 					"Telefone inválido. Digite um telefone válido.");
 		}
+	}
+	
+	
+	public String message() {
+		exameService = new ExameService();
+		Exame exame = exameService.findExameById(getId());
+		setExame(exame);	
+		return SUCCESS;
 	}
 
 	public Exame getExame() {

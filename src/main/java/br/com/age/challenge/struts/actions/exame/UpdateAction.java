@@ -21,7 +21,7 @@ import br.com.age.challenge.struts.model.Exame;
 public class UpdateAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 
-	private Integer id;
+	private Long id;
 
 	private Exame exame = null;
 
@@ -35,11 +35,11 @@ public class UpdateAction extends ActionSupport {
 		this.exame = exame;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

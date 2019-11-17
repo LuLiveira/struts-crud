@@ -13,15 +13,11 @@ public class ExameService {
 
 	private ExameRepository exameRepository = null;
 
-	public String createExame(Exame exame) {
+	public Long createExame(Exame exame) {
 		exameRepository = new ExameRepository();
-		Integer create = exameRepository.create(exame);
+		Long id = exameRepository.create(exame);
 
-		if (create > 0) {
-			return "success";
-		}
-
-		return "error";
+		return id;
 	}
 
 	public String deleteExame(Integer id) {
@@ -73,6 +69,40 @@ public class ExameService {
 		}
 		return null;
 
+	}
+
+	public Exame findExameById(Long id) {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+
+		exameRepository = new ExameRepository();
+
+		ResultSet resultSet = exameRepository.findExameById(id);
+
+		Exame exame = new Exame();
+
+		if (resultSet != null) {
+
+			try {
+
+				while (resultSet.next()) {
+
+					exame.setId(resultSet.getInt("id"));
+					exame.setNome(resultSet.getString("nome"));
+					exame.setTelefone(resultSet.getString("telefone"));
+					exame.setEmail(resultSet.getString("email"));
+					exame.setCpf(resultSet.getString("cpf"));
+					exame.setData(sdf.parse(resultSet.getString("data")));
+					exame.setDescricao(resultSet.getString("descricao"));
+					exame.setIdade(resultSet.getInt("idade"));
+				}
+				resultSet.close();
+				return exame;
+			} catch (Exception e) {
+				throw new DBException(e.getMessage());
+			}
+		}
+		return null;
 	}
 
 }

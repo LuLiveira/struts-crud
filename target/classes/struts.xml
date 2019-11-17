@@ -11,13 +11,15 @@
 	<constant name="struts.custom.i18n.resources"
 		value="ApplicationResource" />
 
+
 	<package name="default" extends="struts-default" namespace="/">
 
 		<action name="login"
 			class="br.com.age.challenge.struts.actions.login.LoginAction">
-			<result name="success">/create.jsp</result>
+			<result name="success" type="dispatcher">/create.jsp</result>
 			<result name="input">/login.jsp</result>
 		</action>
+
 
 		<action name="delete"
 			class="br.com.age.challenge.struts.actions.exame.DeleteAction">
@@ -27,9 +29,19 @@
 
 		<action name="create" method="execute"
 			class="br.com.age.challenge.struts.actions.exame.CreateAction">
-			<result name="success" type="dispatcher">/createsuccess.jsp</result>
+			<result name="success" type="redirect"> /created.action?id=${id} </result>
 			<result name="input">/create.jsp</result>
 			<result name="error">/create.jsp</result>
+		</action>
+
+		<action name="created" method="message"
+			class="br.com.age.challenge.struts.actions.exame.CreateAction">
+			<interceptor-ref name="params" />
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">message</param>
+			</interceptor-ref>
+			<result name="success">/createsuccess.jsp</result>
+			<result name="error">/listar.action</result>
 		</action>
 
 		<action name="listar" method="execute"
