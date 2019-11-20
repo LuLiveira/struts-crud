@@ -22,19 +22,11 @@ public class CreateAction extends ActionSupport {
 
 	private Long id;
 
-	@Validations(
-			requiredFields = {
-				@RequiredFieldValidator(type = ValidatorType.SIMPLE, fieldName = "exame.idade", message = "A idade do paciente é obrigatória."),
-				@RequiredFieldValidator(type = ValidatorType.SIMPLE, fieldName = "exame.data", message = "A data do exame é obrigatória."),
-				@RequiredFieldValidator(type = ValidatorType.SIMPLE, fieldName = "exame.email", message = "O e-mail do paciente é obrigatório."),
-				@RequiredFieldValidator(type = ValidatorType.SIMPLE, fieldName = "exame.nome", message = "O nome do paciente é obrigatório."),
-				@RequiredFieldValidator(type = ValidatorType.SIMPLE, fieldName = "exame.descricao", message = "A descrição do paciente é obrigatório."),
-				@RequiredFieldValidator(type = ValidatorType.SIMPLE, fieldName = "exame.cpf", message = "O CPF do paciente é obrigatório."),
-				@RequiredFieldValidator(type = ValidatorType.SIMPLE, fieldName = "exame.telefone", message = "O telefone do paciente é obrigatório.")}, 
-			emails = {
-					@EmailValidator(type = ValidatorType.SIMPLE, fieldName = "exame.email", message = "O e-mail inserido é inválido.") }, 
-			intRangeFields = {
-					@IntRangeFieldValidator(type = ValidatorType.SIMPLE, fieldName = "exame.idade", min = "1", max = "150", message = "Idade do paciente deve ser maior que ${min}.") })
+	@Validations(requiredFields = {
+			@RequiredFieldValidator(type = ValidatorType.SIMPLE, fieldName = "exame.idade", message = "A idade do paciente é obrigatória."),
+			@RequiredFieldValidator(type = ValidatorType.SIMPLE, fieldName = "exame.data", message = "A data do exame é obrigatória.") }, emails = {
+					@EmailValidator(type = ValidatorType.SIMPLE, fieldName = "exame.email", message = "O e-mail inserido é inválido.") }, intRangeFields = {
+							@IntRangeFieldValidator(type = ValidatorType.SIMPLE, fieldName = "exame.idade", min = "1", max = "150", message = "Idade do paciente deve ser maior que ${min}.") })
 	public String execute() {
 		setId(exameService.createExame(getExame()));
 		return getId() > 0 ? "success" : "error";
@@ -45,25 +37,34 @@ public class CreateAction extends ActionSupport {
 		return getExame() != null ? SUCCESS : ERROR;
 	}
 
-	public String formRender() {
-		return SUCCESS;
-	}
-
 	@Override
 	public void validate() {
-		if (exame.getDescricao().length() < 50) {
-			addFieldError("exame.descricao",
-					"A descrição do exame irá ajudar o médico. Por favor, informe uma descrição.");
+
+		if (getExame().getTelefone().length() == 0) {
+			addFieldError("exame.telefone", "O telefone do paciente é obrigatório.");
 		}
-		
-		if (exame.getNome().length() < 10) {
-			addFieldError("exame.nome",
-					"Insira o nome completo do paciente.");
+
+		if (getExame().getEmail().length() == 0) {
+			addFieldError("exame.email", "O e-mail do paciente é obrigatório");
 		}
-		
-		if(exameService.findByDateAndCpf(getExame().getData(), getExame().getCpf())) {
-			addFieldError("exame.data", "O paciente ja possui exame marcado para a data.");
-		};
+
+		if (getExame().getCpf().length() == 0) {
+			addFieldError("exame.cpf", "O CPF é obrigatório");
+		}
+
+		if (getExame().getDescricao().length() < 50) {
+			addFieldError("exame.descricao", "Informe o tipo de exame e as observações do mesmo.");
+		}
+
+		if (getExame().getNome().length() < 10) {
+			addFieldError("exame.nome", "Insira o nome completo do paciente.");
+		}
+
+		if (getExame().getData() != null) {
+			if (exameService.findByDateAndCpf(getExame().getData(), getExame().getCpf())) {
+				addFieldError("exame.data", "O paciente ja possui exame marcado para a data.");
+			}
+		}
 	}
 
 	public Exame getExame() {

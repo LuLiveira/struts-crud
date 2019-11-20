@@ -16,7 +16,6 @@
 
 	<package name="default" extends="struts-default" namespace="/">
 
-
 		<action name="login"
 			class="br.com.age.challenge.struts.actions.login.LoginAction">
 			<result name="success" type="redirect">/create.jsp</result>

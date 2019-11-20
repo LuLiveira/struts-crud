@@ -52,4 +52,15 @@
 		<message>A descrição do exame é obrigatória.</message>
 	</validator>
 
+	<field name="exame.idade">
+		<field-validator type="required">
+			<message>A idade do paciente é obrigatória.</message>
+		</field-validator>
+		<field-validator type="int">
+			<param name="min">1</param>
+			<param name="max">120</param>
+			<message key="exame.idade">O paciente deve ter no minimo ${min} anos</message>
+		</field-validator>
+	</field>
+
 </validators>
