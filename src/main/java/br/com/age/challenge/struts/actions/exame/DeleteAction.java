@@ -1,6 +1,7 @@
 package br.com.age.challenge.struts.actions.exame;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.inject.Inject;
 
 import br.com.age.challenge.struts.services.ExameService;
 
@@ -9,7 +10,13 @@ public class DeleteAction extends ActionSupport {
 
 	private Integer id;
 
-	private ExameService exameService = null;
+	@Inject("exameService")
+	private ExameService exameService;
+
+	@Override
+	public String execute() {
+		return exameService.deleteExame(getId());
+	}
 
 	public Integer getId() {
 		return id;
@@ -19,11 +26,11 @@ public class DeleteAction extends ActionSupport {
 		this.id = id;
 	}
 
-	@Override
-	public String execute() {
+	public ExameService getExameService() {
+		return exameService;
+	}
 
-		exameService = new ExameService();
-		return exameService.deleteExame(getId());
-
+	public void setExameService(ExameService exameService) {
+		this.exameService = exameService;
 	}
 }

@@ -28,7 +28,7 @@
 		
 			<s:textfield label="Data" name="exame.data" />
 			<s:textfield label="E-mail" name="exame.email" />
-			<s:textfield label="Nome" name="exame.nome" />
+			<s:textfield label="Nome completo" name="exame.nome" />
 			<s:textfield label="Idade" name="exame.idade" />
 			<s:textfield label="Telefone" name="exame.telefone" />
 			<s:textfield label="CPF" name="exame.cpf" />	

@@ -1,9 +1,11 @@
 package br.com.age.challenge.struts.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Exame {
-
+public class Exame implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	private Integer id;
 	private String nome;
 	private String telefone;
@@ -12,8 +14,6 @@ public class Exame {
 	private Integer idade;
 	private Date data;
 	private String descricao;
-	
-	
 
 	public Exame() {
 	}

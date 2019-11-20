@@ -3,6 +3,7 @@ package br.com.age.challenge.struts.actions.exame;
 import java.util.List;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.inject.Inject;
 
 import br.com.age.challenge.struts.model.Exame;
 import br.com.age.challenge.struts.services.ExameService;
@@ -12,7 +13,14 @@ public class ReadAction extends ActionSupport {
 
 	List<Exame> exameList = null;
 
-	private ExameService exameService = null;
+	@Inject("exameService")
+	private ExameService exameService;
+
+	@Override
+	public String execute() throws Exception {
+		setExameList(exameService.listExame());
+		return getExameList().size() > 0 ? SUCCESS : ERROR;
+	}
 
 	public List<Exame> getExameList() {
 		return exameList;
@@ -22,16 +30,11 @@ public class ReadAction extends ActionSupport {
 		this.exameList = exameList;
 	}
 
-	@Override
-	public String execute() throws Exception {
-
-		exameService = new ExameService();
-		setExameList(exameService.listExame());
-
-		if (getExameList().size() > 0) {
-			return SUCCESS;
-		}
-		return ERROR;
+	public ExameService getExameService() {
+		return exameService;
 	}
 
+	public void setExameService(ExameService exameService) {
+		this.exameService = exameService;
+	}
 }

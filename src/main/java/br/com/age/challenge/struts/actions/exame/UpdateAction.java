@@ -3,9 +3,9 @@ package br.com.age.challenge.struts.actions.exame;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
 import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.Validation;
 import com.opensymphony.xwork2.validator.annotations.Validations;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
@@ -19,10 +19,31 @@ public class UpdateAction extends ActionSupport {
 
 	private Long id;
 
-	private Exame exame = null;
+	private Exame exame;
 	
-	private ExameService exameService = null;
+	@Inject("exameService")
+	private ExameService exameService;
 
+
+	@SkipValidation
+	@Override
+	public String execute() {
+		setExame(exameService.findExameById(getId()));
+		return getExame() != null ? SUCCESS : ERROR; 
+	}
+
+	@Validations(
+			emails = {
+					@EmailValidator(type = ValidatorType.SIMPLE, fieldName = "exame.email", message = "O e-mail é inválido.") }, 
+			intRangeFields = {
+							@IntRangeFieldValidator(type = ValidatorType.SIMPLE, fieldName = "exame.idade", min = "1", max = "150", message = "O paciente deve ter idade maior que ${min}."),
+			})
+	public String update() {
+		Integer update = exameService.update(getExame());
+		return update == 1 ? SUCCESS : ERROR;
+	}
+	
+	
 	public Exame getExame() {
 		return exame;
 	}
@@ -38,39 +59,4 @@ public class UpdateAction extends ActionSupport {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	@SkipValidation
-	@Override
-	public String execute() {
-		
-		exameService = new ExameService();
-		setExame(exameService.findExameById(getId()));
-		
-		if(getExame() == null) {
-			return ERROR;
-		}
-		return SUCCESS;		
-	}
-
-	@Validations(
-			requiredFields = {
-				@RequiredFieldValidator(type = ValidatorType.SIMPLE, fieldName = "exame.idade", message = "A idade doo paciente é obrigatória."),
-				@RequiredFieldValidator(type = ValidatorType.SIMPLE, fieldName = "exame.data", message = "A data do exame é obrigatória.")}, 
-			emails = {
-					@EmailValidator(type = ValidatorType.SIMPLE, fieldName = "exame.email", message = "O e-mail é inválido.") }, 
-			intRangeFields = {
-							@IntRangeFieldValidator(type = ValidatorType.SIMPLE, fieldName = "exame.idade", min = "1", max = "150", message = "O paciente deve ter idade maior que ${min}."),
-			})
-	public String update() {
-		
-		exameService = new ExameService();
-		Integer update = exameService.update(getExame());
-		
-		if(update == 1) {
-			return SUCCESS;
-		}
-		return ERROR;
-	}
-	
-	
 }

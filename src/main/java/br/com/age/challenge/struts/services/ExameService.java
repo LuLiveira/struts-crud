@@ -11,29 +11,24 @@ import br.com.age.challenge.struts.model.Exame;
 
 public class ExameService {
 
+	private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+	
 	private ExameRepository exameRepository = null;
 
 	public Long createExame(Exame exame) {
 		exameRepository = new ExameRepository();
 		Long id = exameRepository.create(exame);
-
 		return id;
 	}
 
 	public String deleteExame(Integer id) {
 		exameRepository = new ExameRepository();
-		Integer delete = exameRepository.delete(id);
-
-		if (delete > 0) {
-			return "success";
-		}
-
-		return "error";
-
+		Integer delete = exameRepository.delete(id);	
+		return delete == 1 ? "success" : "error";
 	}
 
 	public List<Exame> listExame() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		
 
 		ArrayList<Exame> exameList = new ArrayList<Exame>();
 
@@ -53,7 +48,7 @@ public class ExameService {
 					exame.setTelefone(resultSet.getString("telefone"));
 					exame.setEmail(resultSet.getString("email"));
 					exame.setCpf(resultSet.getString("cpf"));
-					exame.setData(sdf.parse(resultSet.getString("data")));
+					exame.setData(this.sdf.parse(resultSet.getString("data")));
 					exame.setDescricao(resultSet.getString("descricao"));
 					exame.setIdade(resultSet.getInt("idade"));
 
@@ -72,9 +67,6 @@ public class ExameService {
 	}
 
 	public Exame findExameById(Long id) {
-
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
-
 		exameRepository = new ExameRepository();
 
 		ResultSet resultSet = exameRepository.findExameById(id);
@@ -92,7 +84,7 @@ public class ExameService {
 					exame.setTelefone(resultSet.getString("telefone"));
 					exame.setEmail(resultSet.getString("email"));
 					exame.setCpf(resultSet.getString("cpf"));
-					exame.setData(sdf.parse(resultSet.getString("data")));
+					exame.setData(this.sdf.parse(resultSet.getString("data")));
 					exame.setDescricao(resultSet.getString("descricao"));
 					exame.setIdade(resultSet.getInt("idade"));
 				}

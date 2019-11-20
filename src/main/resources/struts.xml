@@ -11,12 +11,15 @@
 	<constant name="struts.custom.i18n.resources"
 		value="ApplicationResource" />
 
+	<bean class="br.com.age.challenge.struts.services.ExameService"
+		name="exameService" />
 
 	<package name="default" extends="struts-default" namespace="/">
 
+
 		<action name="login"
 			class="br.com.age.challenge.struts.actions.login.LoginAction">
-			<result name="success" type="dispatcher">/create.jsp</result>
+			<result name="success" type="redirect">/create.jsp</result>
 			<result name="input">/login.jsp</result>
 		</action>
 
@@ -61,7 +64,7 @@
 			<result name="input">/update.jsp</result>
 			<result name="error">/create.jsp</result>
 		</action>
-		
+
 	</package>
 
 </struts>
