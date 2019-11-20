@@ -60,6 +60,10 @@ public class CreateAction extends ActionSupport {
 			addFieldError("exame.nome",
 					"Insira o nome completo do paciente.");
 		}
+		
+		if(exameService.findByDateAndCpf(getExame().getData(), getExame().getCpf())) {
+			addFieldError("exame.data", "O paciente ja possui exame marcado para a data.");
+		};
 	}
 
 	public Exame getExame() {

@@ -160,4 +160,33 @@ public class ExameRepository {
 		}
 	}
 
+	public boolean findByDateAndCpf(String date, String nextDate, String cpf) {
+		String query = "select exame.id from exames as exame where data between ? and ? and cpf=?";
+		
+		try {
+			PreparedStatement prepareStatement = this.connection.prepareStatement(query);
+			prepareStatement.setString(1, date);
+			prepareStatement.setString(2, nextDate);
+			prepareStatement.setString(3, cpf);
+			
+			ResultSet resultSet = prepareStatement.executeQuery();
+			
+			if (resultSet.next()) {
+				return true;
+			}
+			resultSet.close();
+			return false;
+			
+		}catch(Exception e) {
+			throw new DBException(e.getMessage());
+		}finally {
+			try {
+				this.connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
 }

@@ -3,6 +3,8 @@ package br.com.age.challenge.struts.services;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import br.com.age.challenge.struts.dao.ExameRepository;
@@ -103,6 +105,21 @@ public class ExameService {
 		Integer update = exameRepository.update(exame);
 
 		return update;
+	}
+
+	public boolean findByDateAndCpf(Date data, String cpf) {
+		exameRepository = new ExameRepository();
+		Date incrementDate = incrementDate(data);
+		boolean hasExameToday = exameRepository.findByDateAndCpf(this.sdf.format(data), this.sdf.format(incrementDate), cpf);	
+		return hasExameToday;
+	}
+	
+	private Date incrementDate(Date data) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(data);
+		c.add(Calendar.DATE, 1);
+		Date nextDate = c.getTime();
+		return nextDate;
 	}
 
 }
