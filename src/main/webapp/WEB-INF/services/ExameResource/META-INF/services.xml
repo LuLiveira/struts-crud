@@ -1,4 +1,4 @@
-<service name="ExameResource">
+<service name="ExameResource" >
 	<Description>
 		Please Type your service description here
 	</Description>
@@ -10,6 +10,5 @@
 			mep="http://www.w3.org/ns/wsdl/in-out"
 			class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
 	</messageReceivers>
-	<parameter name="ServiceClass" locked="false">br.com.age.challenge.struts.ws.ExameResource
-	</parameter>
+	<parameter name="ServiceClass" locked="false">br.com.age.challenge.struts.ws.ExameResource</parameter>
 </service>

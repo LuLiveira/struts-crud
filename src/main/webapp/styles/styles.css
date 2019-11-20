@@ -1,18 +1,18 @@
 h3 {
-    text-weight: bold;
-    font-size: 16px;
+	text-weight: bold;
+	font-size: 16px;
 }
 
-table, td, th {
+.exames-table* {
 	border: 1px solid black;
 }
 
-table {
+.exames-table {
 	border-collapse: collapse;
 	width: 60%;
 }
 
-th {
+.exames-tabel > thead > tr > th {
 	height: 30px;
 }
 
@@ -26,12 +26,6 @@ th {
 	color: white;
 }
 
-td { 
-	text-align: center; 
+td {
+	text-align: center;
 }
-
-
-
-
-
-

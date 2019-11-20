@@ -1,7 +1,7 @@
 <%@taglib prefix="s" uri="/struts-tags"%>
 <html>
 <head>
-<title>Gerenciador de Exames - Inserir exame</title>
+<title>Gerenciador de Exames - Novo exame</title>
 	<style type="text/css">
 		.button-create {
 			background-color: green;
