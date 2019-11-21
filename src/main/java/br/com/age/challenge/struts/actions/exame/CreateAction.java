@@ -29,7 +29,7 @@ public class CreateAction extends ActionSupport {
 							@IntRangeFieldValidator(type = ValidatorType.SIMPLE, fieldName = "exame.idade", min = "1", max = "150", message = "Idade do paciente deve ser maior que ${min}.") })
 	public String execute() {
 		setId(exameService.createExame(getExame()));
-		return getId() > 0 ? "success" : "error";
+		return getId() > 0 ? SUCCESS : ERROR;
 	}
 
 	public String message() {

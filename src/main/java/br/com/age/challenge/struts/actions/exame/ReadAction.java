@@ -17,7 +17,7 @@ public class ReadAction extends ActionSupport {
 	private ExameService exameService;
 
 	@Override
-	public String execute() throws Exception {
+	public String execute() {
 		setExameList(exameService.listExame());
 		return getExameList().size() > 0 ? SUCCESS : ERROR;
 	}

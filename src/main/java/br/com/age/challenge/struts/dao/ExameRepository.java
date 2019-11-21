@@ -69,7 +69,11 @@ public class ExameRepository {
 		} catch (Exception e) {
 			throw new DBException(e.getMessage());
 		} finally {
-
+			try {
+				this.connection.close();
+			} catch (SQLException e) {
+				throw new DBException(e.getMessage());
+			}
 		}
 
 	}
@@ -183,7 +187,7 @@ public class ExameRepository {
 			try {
 				this.connection.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new DBException(e.getMessage());
 			}
 		}
 		
