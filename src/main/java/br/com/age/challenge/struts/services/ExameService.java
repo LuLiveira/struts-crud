@@ -31,40 +31,8 @@ public class ExameService {
 
 	public List<Exame> listExame() {
 		
-
-		ArrayList<Exame> exameList = new ArrayList<Exame>();
-
 		exameRepository = new ExameRepository();
-
-		ResultSet resultSet = exameRepository.read();
-
-		if (resultSet != null) {
-
-			try {
-
-				while (resultSet.next()) {
-					Exame exame = new Exame();
-
-					exame.setId(resultSet.getInt("id"));
-					exame.setNome(resultSet.getString("nome"));
-					exame.setTelefone(resultSet.getString("telefone"));
-					exame.setEmail(resultSet.getString("email"));
-					exame.setCpf(resultSet.getString("cpf"));
-					exame.setData(this.sdf.parse(resultSet.getString("data")));
-					exame.setDescricao(resultSet.getString("descricao"));
-					exame.setIdade(resultSet.getInt("idade"));
-
-					exameList.add(exame);
-				}
-				resultSet.close();
-
-				return exameList;
-
-			} catch (Exception e) {
-				throw new DBException(e.getMessage());
-			}
-		}
-		return null;
+		return exameRepository.read();
 
 	}
 
