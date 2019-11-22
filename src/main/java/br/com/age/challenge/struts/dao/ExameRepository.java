@@ -66,8 +66,29 @@ public class ExameRepository {
 
 			PreparedStatement prepareStatement = this.connection.prepareStatement(query);
 			ResultSet resultSet = prepareStatement.executeQuery();
+			
+			if (resultSet != null) {
 
-			return list;
+			try {
+
+				while (resultSet.next()) {
+					Exame exame = new Exame();
+
+					exame.setId(resultSet.getInt("id"));
+					exame.setNome(resultSet.getString("nome"));
+					exame.setTelefone(resultSet.getString("telefone"));
+					exame.setEmail(resultSet.getString("email"));
+					exame.setCpf(resultSet.getString("cpf"));
+					exame.setData(this.sdf.parse(resultSet.getString("data")));
+					exame.setDescricao(resultSet.getString("descricao"));
+					exame.setIdade(resultSet.getInt("idade"));
+
+					list.add(exame);
+				}
+				resultSet.close();
+
+				return list;
+				
 		} catch (Exception e) {
 			throw new DBException(e.getMessage());
 		} finally {
