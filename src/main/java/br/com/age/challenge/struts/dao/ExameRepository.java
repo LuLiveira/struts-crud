@@ -56,7 +56,9 @@ public class ExameRepository {
 		}
 	}
 
-	public ResultSet read() {
+	public List<Exame> read() {
+		
+		List<Exame> list = new ArrayList<Exame>();
 
 		String query = "select exames.* from exames as exames";
 
@@ -65,7 +67,7 @@ public class ExameRepository {
 			PreparedStatement prepareStatement = this.connection.prepareStatement(query);
 			ResultSet resultSet = prepareStatement.executeQuery();
 
-			return resultSet;
+			return list;
 		} catch (Exception e) {
 			throw new DBException(e.getMessage());
 		} finally {
